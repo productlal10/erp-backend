@@ -7,6 +7,10 @@ module.exports = (models) => {
   // Create System PO + Line Items
   router.post("/", async (req, res) => {
     const { items, ...poData } = req.body;
+
+    console.log("📦 Received System PO body:", JSON.stringify(req.body, null, 2)); // 👈 add this
+
+
     try {
       const newPO = await SystemPO.create(poData);
       if (items && items.length > 0) {
