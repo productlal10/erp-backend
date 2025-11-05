@@ -8,6 +8,7 @@ const VendorPO = sequelize.define("VendorPO", {
   buyer_po_number: { type: DataTypes.STRING, unique: true },
   vendor_po_no: { type: DataTypes.STRING },
   order_type: { type: DataTypes.STRING },
+  status: { type: DataTypes.STRING },
   vendor_company_name: { type: DataTypes.STRING },
   vendor_name: { type: DataTypes.STRING },
   vendor_code: { type: DataTypes.STRING },
