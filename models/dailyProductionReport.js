@@ -85,6 +85,7 @@ const DailyProductionReport = sequelize.define(
       defaultValue: 0,
     },
     buyer_po_number: { type: DataTypes.STRING },
+    vendor_po_number: { type: DataTypes.STRING },
     colour: { type: DataTypes.STRING },
     style_number: { type: DataTypes.STRING },
     item_name: { type: DataTypes.STRING },
@@ -106,5 +107,11 @@ const DailyProductionReport = sequelize.define(
     timestamps: false,
   }
 );
+
+DailyProductionReport.afterCreate(async (dpr) => {
+  await dpr.update({ dpr_code: `DPR_${dpr.dpr_id}` });
+});
+
+
 
 module.exports = DailyProductionReport;

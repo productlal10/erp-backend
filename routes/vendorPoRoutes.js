@@ -669,10 +669,12 @@ module.exports = (models, requireLogin) => {
           quantity: 0,
           remarks:
             "Initial DPR created automatically after Vendor PO creation.",
-          dpr_code: `DPR_${Date.now()}_${li.vendor_line_item_id}`,
+          //dpr_code: `DPR_${Date.now()}_${li.vendor_line_item_id}`,
         }));
 
-        await DailyProductionReport.bulkCreate(dprRecords);
+        //await DailyProductionReport.bulkCreate(dprRecords);
+        await DailyProductionReport.bulkCreate(dprRecords, { individualHooks: true });
+
       }
 
       res.status(201).json({
@@ -731,18 +733,23 @@ module.exports = (models, requireLogin) => {
           vendor_line_item_id: li.vendor_line_item_id,
           vendor_po_number: po.vendor_po_no || "",
           buyer_po_number: po.buyer_po_number || "",
-          vendor_name: vendor ? vendor.vendor_name : "",
-          buyer_name: buyer ? buyer.customer_name : "",
+          // vendor_name: vendor ? vendor.vendor_name : "",
+          // buyer_name: buyer ? buyer.customer_name : "",
+          vendor_name: vendor ? vendor.vendor_name : newPO.vendor_company_name || "",
+          buyer_name: buyer ? buyer.customer_name : newPO.buyer_company_name || "",
+
           vendor_code: vendor ? vendor.vendor_code : "",
           item_name: li.item_name || "",
           style_number: li.style_number || "",
           sku_code: li.sku_code || "",
           quantity: 0,
           remarks: "DPR re-created automatically after Vendor PO update.",
-          dpr_code: `DPR_${Date.now()}_${li.vendor_line_item_id}`,
+         // dpr_code: `DPR_${Date.now()}_${li.vendor_line_item_id}`,
         }));
 
-        await DailyProductionReport.bulkCreate(dprRecords);
+       // await DailyProductionReport.bulkCreate(dprRecords);
+          await DailyProductionReport.bulkCreate(dprRecords, { individualHooks: true });
+
       }
 
       res.json({

@@ -36,10 +36,15 @@ module.exports = (models, requireLogin) => {
         vendor_code: li.VendorPO?.vendor_code || "",
         buyer_code: li.buyer_code || "",
         remarks: "Initial DPR created for production tracking.",
-        dpr_code: `DPR_${Date.now()}_${li.vendor_line_item_id}`,
+        //dpr_code: `DPR_${Date.now()}_${li.vendor_line_item_id}`,
       }));
 
-      const createdDPR = await DailyProductionReport.bulkCreate(dprRecords, { returning: true });
+      // const createdDPR = await DailyProductionReport.bulkCreate(dprRecords, { returning: true });
+      const createdDPR = await DailyProductionReport.bulkCreate(dprRecords, { 
+          returning: true,
+          individualHooks: true,
+});
+
 
       res.status(201).json({
         message: "Initial DPR records created successfully for all vendor line items.",
@@ -85,24 +90,73 @@ module.exports = (models, requireLogin) => {
   });
 
   // --- PUT Update DPR record ---
+  // router.put("/:dpr_id", requireLogin, async (req, res) => {
+  //   const { dpr_id } = req.params;
+  //   const { quantity, remarks } = req.body;
+
+  //   console.log("🟡 DPR UPDATE REQUEST RECEIVED");
+  //   console.log("➡️ DPR ID:", dpr_id);
+  //   console.log("➡️ Body Received:", req.body);
+
+  //   try {
+  //     const dpr = await DailyProductionReport.findByPk(dpr_id);
+  //     if (!dpr) return res.status(404).json({ error: "DPR not found" });
+
+  //     const updateData = {};
+  //     if (typeof quantity !== 'undefined') updateData.quantity = quantity;
+  //     if (remarks) updateData.remarks = remarks;
+
+  //     await dpr.update(updateData);
+  //     res.json({ message: "DPR updated successfully", dpr });
+  //   } catch (err) {
+  //     res.status(500).json({ error: err.message });
+  //   }
+  // });
   router.put("/:dpr_id", requireLogin, async (req, res) => {
-    const { dpr_id } = req.params;
-    const { quantity, remarks } = req.body;
+  const { dpr_id } = req.params;
 
-    try {
-      const dpr = await DailyProductionReport.findByPk(dpr_id);
-      if (!dpr) return res.status(404).json({ error: "DPR not found" });
+  console.log("🟡 DPR UPDATE REQUEST RECEIVED");
+  console.log("➡️ DPR ID:", dpr_id);
+  console.log("➡️ Body Received:", req.body);
 
-      const updateData = {};
-      if (typeof quantity !== 'undefined') updateData.quantity = quantity;
-      if (remarks) updateData.remarks = remarks;
+  try {
+    const dpr = await DailyProductionReport.findByPk(dpr_id);
+    if (!dpr) return res.status(404).json({ error: "DPR not found" });
 
-      await dpr.update(updateData);
-      res.json({ message: "DPR updated successfully", dpr });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
+    // Pick only fields that exist in the model
+    const fieldsToUpdate = [
+      "quantity",
+      "remarks",
+      "vendor_line_item_id",
+      "vendor_po_number",
+      "buyer_po_number",
+      "style_number",
+      "item_name",
+      "sku_code",
+      "vendor_name",
+      "buyer_name",
+      "vendor_code",
+      "buyer_code",
+      "colour",
+      "reported_on"
+    ];
+
+    const updateData = {};
+    fieldsToUpdate.forEach(field => {
+      if (req.body[field] !== undefined) {
+        updateData[field] = req.body[field];
+      }
+    });
+
+    await dpr.update(updateData);
+
+    res.json({ message: "✅ DPR updated successfully", dpr });
+  } catch (err) {
+    console.error("❌ DPR UPDATE ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
   // --- DELETE DPR record ---
   router.delete("/:dpr_id", requireLogin, async (req, res) => {
