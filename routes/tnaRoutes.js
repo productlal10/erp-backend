@@ -234,23 +234,43 @@ module.exports = (models, requireLogin) => {
   // ===============================
   // 4️⃣ Update TNA
   // ===============================
-  router.put("/:tna_id", requireLogin, async (req, res) => {
-    const { tna_id } = req.params;
-    const { tna_overall_status, remarks } = req.body;
+  // router.put("/:tna_id", requireLogin, async (req, res) => {
+  //   const { tna_id } = req.params;
+  //   const { tna_overall_status, remarks } = req.body;
 
-    try {
-      const tna = await TNAMergedReport.findByPk(tna_id);
-      if (!tna) return res.status(404).json({ error: "TNA not found" });
+  //   try {
+  //     const tna = await TNAMergedReport.findByPk(tna_id);
+  //     if (!tna) return res.status(404).json({ error: "TNA not found" });
 
-      tna.tna_overall_status = tna_overall_status || tna.tna_overall_status;
-      tna.remarks = remarks || tna.remarks;
+  //     tna.tna_overall_status = tna_overall_status || tna.tna_overall_status;
+  //     tna.remarks = remarks || tna.remarks;
+      
 
-      await tna.save();
-      res.json({ message: "TNA updated successfully", tna });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
+  //     await tna.save();
+  //     res.json({ message: "TNA updated successfully", tna });
+  //   } catch (err) {
+  //     res.status(500).json({ error: err.message });
+  //   }
+  // });
+
+router.put("/:tna_id", requireLogin, async (req, res) => {
+  const { tna_id } = req.params;
+
+  try {
+    const tna = await TNAMergedReport.findByPk(tna_id);
+    if (!tna) return res.status(404).json({ error: "TNA not found" });
+
+    // Update only fields sent from frontend (no need to assign manually)
+    await tna.update(req.body);
+
+    res.json({ message: "TNA updated successfully", tna });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 
   // ===============================
   // 5️⃣ Delete TNA
