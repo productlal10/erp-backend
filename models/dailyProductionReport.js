@@ -96,6 +96,11 @@ const DailyProductionReport = sequelize.define(
     buyer_code: { type: DataTypes.STRING },
     remarks: { type: DataTypes.TEXT },
     dpr_code: { type: DataTypes.STRING },
+    units_produced: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+    cutting: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+    stitching: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+    finishing: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+    packaging: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     reported_on: {
       type: DataTypes.DATE,
       allowNull: false,

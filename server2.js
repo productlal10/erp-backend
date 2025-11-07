@@ -269,6 +269,9 @@ const VendorMaster = require("./models/vendorMaster");
 const ItemMaster = require("./models/itemMaster");
 const CostSheet = require("./models/costSheet");
 const DailyProductionReport = require("./models/dailyProductionReport"); // <--- DPR: NEW IMPORT
+const DPRLineItem = require("./models/dprLineItem");
+
+
 
 // Consolidate models into an object for easy access
 const models = {
@@ -277,6 +280,7 @@ const models = {
   RolePermission, CustomerMaster, VendorMaster,
   ItemMaster, CostSheet,
   DailyProductionReport, // <--- FIX 1: ADDED DPR TO MODELS OBJECT
+  DPRLineItem,
 };
 
 
@@ -306,7 +310,19 @@ DailyProductionReport.belongsTo(VendorPOLineItem, {
 // 2. Add associations needed for the DPR route to fetch master data
 VendorPOLineItem.belongsTo(ItemMaster, { foreignKey: 'item_id', as: 'ItemMaster' }); 
 // VendorPOLineItem.belongsTo(VendorPO, { foreignKey: 'vendor_po_id', as: 'VendorPO' }); // <--- FIX 3: REMOVED DUPLICATE ASSOCIATION
- 
+
+// --- DPR -> DPR Line Items Association ---
+DailyProductionReport.hasMany(DPRLineItem, {
+  foreignKey: "dpr_id",
+  as: "lineItems",
+});
+
+DPRLineItem.belongsTo(DailyProductionReport, {
+  foreignKey: "dpr_id",
+  as: "dpr",
+});
+
+
 
 // =========================
 // Middlewares
@@ -447,6 +463,7 @@ const costSheetRoutes = require("./routes/costSheetRoutes");
 const buyerPoRoutes = require("./routes/buyerPoRoutes"); 
 const vendorPoLineItemRoutes = require("./routes/vendorPoLineItemRoutes");
 const dprRoutes = require("./routes/dprRoutes"); // <--- DPR: NEW ROUTE IMPORT
+
 
 // Note: Pass models and middleware dependencies to the route functions
 app.use("/systempos", systemPoRoutes(models, requireLogin));
