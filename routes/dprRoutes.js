@@ -65,6 +65,7 @@ module.exports = (models, requireLogin) => {
 
   // --- GET All DPR records ---
   router.get("/", requireLogin, async (req, res) => {
+  
     try {
       const dprRecords = await DailyProductionReport.findAll({
         include: [
@@ -95,10 +96,12 @@ module.exports = (models, requireLogin) => {
   // });
   
   router.get("/:dpr_id", requireLogin, async (req, res) => {
+    // log route params
+
   try {
     const dpr = await DailyProductionReport.findByPk(req.params.dpr_id, {
       include: [
-        { model: DPRLineItem, as: "lineItems" }, // <--- include DPR line items
+        { model: DPRLineItem, as: "items" }, // <--- include DPR line items
         { 
           model: VendorPOLineItem, 
           as: "vendorLineItem", 
@@ -109,10 +112,11 @@ module.exports = (models, requireLogin) => {
         }
       ]
     });
-
+    
     if (!dpr) return res.status(404).json({ error: "DPR not found" });
 
     res.json(dpr);
+    console.log("Fetched DPR:", dpr);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

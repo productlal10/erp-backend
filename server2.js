@@ -314,7 +314,7 @@ VendorPOLineItem.belongsTo(ItemMaster, { foreignKey: 'item_id', as: 'ItemMaster'
 // --- DPR -> DPR Line Items Association ---
 DailyProductionReport.hasMany(DPRLineItem, {
   foreignKey: "dpr_id",
-  as: "lineItems",
+  as: "items",
 });
 
 DPRLineItem.belongsTo(DailyProductionReport, {

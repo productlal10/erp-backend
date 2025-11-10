@@ -17,7 +17,7 @@ const BuyerPOLineItem = sequelize.define("BuyerPOLineItem", {
   style_number: { type: DataTypes.STRING(50) },
   units_of_measure: { type: DataTypes.STRING(50) },
   apply_taxes: { type: DataTypes.STRING(10) },
-  gst_treatment: { type: DataTypes.STRING(50) },
+  gst_treatment: { type: DataTypes.INTEGER },
   sku_code: { type: DataTypes.STRING(50) }
 }, {
   tableName: "buyer_po_line_item",

@@ -779,6 +779,29 @@ module.exports = (models, requireLogin) => {
       res.status(500).json({ error: err.message });
     }
   });
+  // GET next Vendor PO number
+router.get("/next-vpo-number", requireLogin, async (req, res) => {
+  try {
+    // Fetch the last Vendor PO
+    const lastVPO = await VendorPO.findOne({
+      order: [["vendor_po_id", "DESC"]],
+    });
+
+    let nextNumber = 1;
+    if (lastVPO && lastVPO.vendor_po_no) {
+      const match = lastVPO.vendor_po_no.match(/\d+$/); // extract the number
+      if (match) nextNumber = parseInt(match[0], 10) + 1;
+    }
+
+    const nextVPOCode = `VPO-${nextNumber}`;
+    res.json({ nextVPOCode });
+  } catch (err) {
+    console.error("Error generating next Vendor PO number:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
   router.get("/:id", requireLogin, async (req, res) => {
     try {

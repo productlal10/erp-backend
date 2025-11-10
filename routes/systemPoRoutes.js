@@ -39,6 +39,27 @@ module.exports = (models) => {
     }
   });
 
+  // GET next PO number for System PO
+router.get("/next-po-number", async (req, res) => {
+  try {
+    const lastPO = await SystemPO.findOne({
+      order: [["system_po_id", "DESC"]],
+    });
+
+    let nextNumber = 1;
+    if (lastPO && lastPO.po_number) {
+      const match = lastPO.po_number.match(/\d+$/);
+      if (match) nextNumber = parseInt(match[0]) + 1;
+    }
+
+    const nextPOCode = `Buyer PO${nextNumber}`;
+    res.json({ nextPOCode });
+  } catch (err) {
+    console.error("Error generating next PO number:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
   // Get one System PO by id
   router.get("/:id", async (req, res) => {
     try {
@@ -94,6 +115,7 @@ module.exports = (models) => {
       res.status(500).json({ error: err.message });
     }
   });
+
 
   return router;
 };
