@@ -12,6 +12,7 @@ const VendorPOLineItem = sequelize.define("VendorPOLineItem", {
   rate: { type: DataTypes.DECIMAL(12,2) },
   quantity: { type: DataTypes.INTEGER },
   apply_taxes: { type: DataTypes.STRING },
+  gst_treatment: { type: DataTypes.INTEGER },
   amount: { type: DataTypes.DECIMAL(12,2) },
   vendor_po_number: { type: DataTypes.STRING }
 }, {

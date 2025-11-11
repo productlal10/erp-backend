@@ -15,6 +15,7 @@ const BuyerPOLineItem = sequelize.define("BuyerPOLineItem", {
   po_number: { type: DataTypes.STRING(100) },
   item_name: { type: DataTypes.STRING(255) },
   style_number: { type: DataTypes.STRING(50) },
+  item_description: { type: DataTypes.STRING(200) },
   units_of_measure: { type: DataTypes.STRING(50) },
   apply_taxes: { type: DataTypes.STRING(10) },
   gst_treatment: { type: DataTypes.INTEGER },

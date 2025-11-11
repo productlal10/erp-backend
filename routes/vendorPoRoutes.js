@@ -647,6 +647,7 @@ module.exports = (models, requireLogin) => {
           rate: item.rate,
           quantity: item.qty || 0, // ✅ FIX ADDED HERE
           apply_taxes: item.apply_taxes,
+          gst_treatment: item.gst_treatment, // ✅ NEW FIELD ADDED HERE
         }));
 
         createdItems = await VendorPOLineItem.bulkCreate(lineItems, {
@@ -725,6 +726,7 @@ module.exports = (models, requireLogin) => {
           rate: item.rate,
           quantity: item.qty || 0, // ✅ FIX ADDED HERE
           apply_taxes: item.apply_taxes,
+          gst_treatment: item.gst_treatment, // ✅ NEW FIELD ADDED HERE
         }));
 
         const createdItems = await VendorPOLineItem.bulkCreate(newItems, {
