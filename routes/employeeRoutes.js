@@ -147,7 +147,7 @@ module.exports = (models, sequelize, requireLogin) => {
         username: req.body.username,
         password: plainPassword, // Store the plaintext password
         reportingto: req.body.reportingTo,
-        access: req.body.access,
+        //access: req.body.access,
       });
       res.status(201).json(employee);
     } catch (err) {
@@ -191,7 +191,7 @@ module.exports = (models, sequelize, requireLogin) => {
         role: req.body.role,
         username: req.body.username,
         reportingto: req.body.reportingTo,
-        access: req.body.access,
+       // access: req.body.access,
       };
       
       // If a new password is provided, store it as plaintext.

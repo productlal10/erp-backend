@@ -13,7 +13,7 @@ const EmployeeMaster = sequelize.define(
     password: { type: DataTypes.STRING }, // Now stores PLAINTEXT password
     username: { type: DataTypes.STRING },
     reportingto: { type: DataTypes.STRING },
-    access: { type: DataTypes.JSON },
+    //access: { type: DataTypes.JSON },
   },
   { tableName: "employeemaster", timestamps: false }
 );
