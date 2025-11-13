@@ -615,6 +615,7 @@ module.exports = (models, requireLogin) => {
     DailyProductionReport,
     VendorMaster,
     CustomerMaster,
+    SystemPO,
   } = models;
 
   // ==============================
@@ -694,8 +695,8 @@ module.exports = (models, requireLogin) => {
 
   ////////
 
-  router.post("/", requireLogin, async (req, res) => {
-  const { items, ...poData } = req.body;
+router.post("/", requireLogin, async (req, res) => {
+const { items, ...poData } = req.body;
 
   console.log("📦 Received Vendor PO body:", JSON.stringify(req.body, null, 2));
 
@@ -743,6 +744,10 @@ const totalAmount = parseFloat(
     // Fetch Vendor & Buyer master data
     const vendor = await VendorMaster.findByPk(newPO.vendor_id);
     const buyer = await CustomerMaster.findByPk(newPO.buyer_id);
+    const systemPO = await SystemPO.findByPk(newPO.system_po_id);
+
+    
+    
 
     // Step 2: Create Line Items linked to this Vendor PO
     let createdItems = [];
@@ -781,10 +786,12 @@ const totalAmount = parseFloat(
           ? buyer.company_name
           : newPO.buyer_company_name || "",
         vendor_code: vendor ? vendor.vendor_code : "",
+       // buyer_code: buyer ? buyer.customer_code : "",
+        buyer_code: systemPO ? systemPO.customer_code : "", // ✅ fetch from SystemPO
         item_name: li.item_name || "",
         style_number: li.style_number || "",
         sku_code: li.sku_code || "",
-        quantity: 0,
+        quantity: li.quantity || 0,
         remarks:
           "Initial DPR created automatically after Vendor PO creation.",
       }));
@@ -973,10 +980,12 @@ router.put("/:id", requireLogin, async (req, res) => {
           ? buyer.company_name
           : po.buyer_company_name || "",
         vendor_code: vendor ? vendor.vendor_code : "",
+        //buyer_code: buyer ? buyer.customer_code : "",
+        buyer_code: systemPO ? systemPO.customer_code : "", // ✅ fetch from SystemPO
         item_name: li.item_name || "",
         style_number: li.style_number || "",
         sku_code: li.sku_code || "",
-        quantity: 0,
+        quantity: li.quantity || 0,
         remarks: "DPR re-created automatically after Vendor PO update.",
       }));
 
