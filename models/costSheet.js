@@ -18,6 +18,10 @@ const CostSheet = sequelize.define(
     final_price: { type: DataTypes.DECIMAL(10, 2) },
     gp: { type: DataTypes.DECIMAL(10, 2) },
     total_gp: { type: DataTypes.DECIMAL(10, 2) },
+    fabric_details:{type:DataTypes.JSON },
+    processing_details:{type:DataTypes.JSON },
+    stores_or_grinderies_details:{type:DataTypes.JSON },
+    labor_details:{type:DataTypes.JSON },
     created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   },
   { tableName: "cost_sheet", timestamps: false }
