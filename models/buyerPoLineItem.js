@@ -11,6 +11,7 @@ const BuyerPOLineItem = sequelize.define("BuyerPOLineItem", {
   rate: { type: DataTypes.DECIMAL(12,2) },
   amount: { type: DataTypes.DECIMAL(12,2) },
   remarks: { type: DataTypes.TEXT },
+  tna_created: { type: DataTypes.BOOLEAN, defaultValue: false,},
   created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   po_number: { type: DataTypes.STRING(100) },
   item_name: { type: DataTypes.STRING(255) },
