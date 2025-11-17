@@ -40,6 +40,7 @@ const DailyProductionReport = require("./models/dailyProductionReport"); // <---
 const DPRLineItem = require("./models/dprLineItem");
 const HsnMaster = require("./models/HsnMaster");
 const PaymentTerm = require("./models/PaymentTerm");
+const PaymentTermMaster = require("./models/PaymentTermMaster");
 
 
 
@@ -53,6 +54,7 @@ const models = {
   DPRLineItem,
   HsnMaster,
   PaymentTerm,
+  PaymentTermMaster,
 };
 
 
@@ -237,6 +239,7 @@ const vendorPoLineItemRoutes = require("./routes/vendorPoLineItemRoutes");
 const dprRoutes = require("./routes/dprRoutes"); // <--- DPR: NEW ROUTE IMPORT
 const hsnRoutes = require("./routes/hsnRoutes");
 const paymentTermRoutes = require("./routes/paymentTerms");
+const paymentTermMasterRoutes = require("./routes/paymentTermMasterRoutes");
 
 
 
@@ -256,6 +259,7 @@ app.use("/vendor_po_line_items", vendorPoLineItemRoutes(models, requireLogin));
 app.use("/dpr", dprRoutes(models, requireLogin)); // <--- FIX 2: REMOVED 'sequelize' ARGUMENT
 app.use("/hsn", hsnRoutes(models, requireLogin));
 app.use("/payment-terms", paymentTermRoutes(models, requireLogin));
+app.use("/payment-term-master", paymentTermMasterRoutes(models, requireLogin));
 
 // =========================
 // Sync Database & Start Server

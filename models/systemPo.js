@@ -16,6 +16,7 @@ const SystemPO = sequelize.define("SystemPO", {
   expected_delivery_date: { type: DataTypes.DATE },
   buyer_po_reference_number: { type: DataTypes.STRING(100) },
   type_of_buyer_po: { type: DataTypes.STRING(50) },
+  payment_term: { type: DataTypes.STRING(255) },
   discount_amount: { type: DataTypes.DECIMAL(12,2) },
   sub_total_amount: { type: DataTypes.DECIMAL(12,2) },
   gst_amount: { type: DataTypes.DECIMAL(12,2) },
