@@ -6,6 +6,7 @@ module.exports = (models, requireLogin) => {
 
   // Create Customer
   router.post("/", requireLogin, async (req, res) => {
+    
     try {
       const lastCustomer = await CustomerMaster.findOne({
         order: [["customer_id", "DESC"]],
@@ -18,6 +19,14 @@ module.exports = (models, requireLogin) => {
       } else {
         newCode = "CUST-1001";
       }
+
+      console.log("Incoming Customer Data:", req.body);
+
+    console.log(
+    "GST:", req.body.gst_treatment,
+    "PAN:", req.body.pan_no,
+    "TAX:", req.body.tax_preference
+    );
 
       const customer = await CustomerMaster.create({
         customer_code: newCode,
@@ -40,6 +49,12 @@ module.exports = (models, requireLogin) => {
         billing_country: req.body.country || "",
         billing_city: req.body.city || "",
         billing_pincode: req.body.pinCode || "",
+        gst_treatment: req.body.gst_treatment,
+        pan_no: req.body.pan_no,
+        tax_preference: req.body.tax_preference,
+        gstin_no:req.body.gstin_no,
+        state_name:req.body.state_name,
+        state_name1:req.body.state_name1,
         shipping_address: req.body.shippingAddress || "",
         shipping_country: req.body.country1 || "",
         shipping_city: req.body.city1 || "",
@@ -104,7 +119,15 @@ module.exports = (models, requireLogin) => {
         country: customer.billing_country,
         country1:customer.shipping_country,
         pinCode: customer.billing_pincode,
-        pinCode1:customer.shipping_city // Note: original code had a typo here (shipping_city instead of pincode)
+        pinCode1:customer.shipping_city, // Note: original code had a typo here (shipping_city instead of pincode)
+        gst_treatment: customer.gst_treatment,
+        gstin_no:customer.gstin_no,
+        state_name:customer.state_name,
+        state_name1:customer.state_name1,
+        pan_no: customer.pan_no,
+        tax_preference: customer.tax_preference,
+        brandPin:customer.brand_pin
+      
       };
 
       res.json(formatted);
@@ -140,6 +163,12 @@ module.exports = (models, requireLogin) => {
         billing_country: req.body.country || "",
         billing_city: req.body.city || "",
         billing_pincode: req.body.pinCode || "",
+        gst_treatment: req.body.gst_treatment,
+        gstin_no:req.body.gstin_no,
+        state_name:req.body.state_name,
+        state_name1:req.body.state_name1,
+        pan_no: req.body.pan_no,
+        tax_preference: req.body.tax_preference,
         shipping_address: req.body.shippingAddress || "",
         shipping_country: req.body.country1 || "",
         shipping_city: req.body.city1 || "",

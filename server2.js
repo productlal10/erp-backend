@@ -41,6 +41,7 @@ const DPRLineItem = require("./models/dprLineItem");
 const HsnMaster = require("./models/HsnMaster");
 const PaymentTerm = require("./models/PaymentTerm");
 const PaymentTermMaster = require("./models/PaymentTermMaster");
+const StateMaster = require("./models/StateMaster");
 
 
 
@@ -55,6 +56,7 @@ const models = {
   HsnMaster,
   PaymentTerm,
   PaymentTermMaster,
+  StateMaster,
 };
 
 
@@ -240,6 +242,7 @@ const dprRoutes = require("./routes/dprRoutes"); // <--- DPR: NEW ROUTE IMPORT
 const hsnRoutes = require("./routes/hsnRoutes");
 const paymentTermRoutes = require("./routes/paymentTerms");
 const paymentTermMasterRoutes = require("./routes/paymentTermMasterRoutes");
+const stateRoutes = require("./routes/stateRoutes");
 
 
 
@@ -260,6 +263,7 @@ app.use("/dpr", dprRoutes(models, requireLogin)); // <--- FIX 2: REMOVED 'sequel
 app.use("/hsn", hsnRoutes(models, requireLogin));
 app.use("/payment-terms", paymentTermRoutes(models, requireLogin));
 app.use("/payment-term-master", paymentTermMasterRoutes(models, requireLogin));
+app.use("/states", stateRoutes(models, requireLogin));
 
 // =========================
 // Sync Database & Start Server
