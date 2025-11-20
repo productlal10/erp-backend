@@ -64,6 +64,7 @@ module.exports = (models, requireLogin) => {
         bank_name: req.body.bankName || "",
         branch_address: req.body.branchAddress || "",
         ifsc_code: req.body.iFSCCode || "",
+        place_of_supply:req.body.place_of_supply || "",
       });
 
       res.status(201).json(customer);
@@ -126,7 +127,8 @@ module.exports = (models, requireLogin) => {
         state_name1:customer.state_name1,
         pan_no: customer.pan_no,
         tax_preference: customer.tax_preference,
-        brandPin:customer.brand_pin
+        brandPin:customer.brand_pin,
+        place_of_supply:customer.place_of_supply
       
       };
 
@@ -178,6 +180,7 @@ module.exports = (models, requireLogin) => {
         bank_name: req.body.bankName || "",
         branch_address: req.body.branchAddress || "",
         ifsc_code: req.body.iFSCCode || "",
+        place_of_supply:req.body.place_of_supply || "",
       });
 
       res.json(customer);

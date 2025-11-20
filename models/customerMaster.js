@@ -40,7 +40,8 @@ const CustomerMaster = sequelize.define(
     bank_name: { type: DataTypes.STRING },
     branch_address: { type: DataTypes.TEXT },
     ifsc_code: { type: DataTypes.STRING },
-    created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
+    created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    place_of_supply:{type: DataTypes.STRING},
   },
   { tableName: "customer_master", timestamps: false }
 );
