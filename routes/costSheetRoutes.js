@@ -33,6 +33,8 @@ module.exports = (models, requireLogin) => {
       const data = { ...req.body };
       delete data.cost_sheet_id;
 
+      console.log(req.body);
+
       const lastSheet = await CostSheet.findOne({ order: [["cost_sheet_id", "DESC"]] });
       const nextNumber = lastSheet ? lastSheet.cost_sheet_id + 1 : 1;
       data.cost_sheet_code = `CS_${nextNumber}`;

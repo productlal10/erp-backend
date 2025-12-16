@@ -159,6 +159,7 @@ const totalAmount = parseFloat(
         apply_taxes: item.apply_taxes,
         gst_treatment: item.gst_treatment,
         amount: item.amount, // ✅ backend-calculated amount
+        style_name_buyer_po: item.style_name_buyer_po,
       }));
 
       createdItems = await VendorPOLineItem.bulkCreate(lineItems, {

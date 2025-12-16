@@ -243,6 +243,8 @@ const hsnRoutes = require("./routes/hsnRoutes");
 const paymentTermRoutes = require("./routes/paymentTerms");
 const paymentTermMasterRoutes = require("./routes/paymentTermMasterRoutes");
 const stateRoutes = require("./routes/stateRoutes");
+const forexRoutes = require("./routes/forex");
+
 
 
 
@@ -264,6 +266,9 @@ app.use("/hsn", hsnRoutes(models, requireLogin));
 app.use("/payment-terms", paymentTermRoutes(models, requireLogin));
 app.use("/payment-term-master", paymentTermMasterRoutes(models, requireLogin));
 app.use("/states", stateRoutes(models, requireLogin));
+app.use("/forex", forexRoutes);
+
+
 
 // =========================
 // Sync Database & Start Server

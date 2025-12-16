@@ -17,6 +17,7 @@ const CostSheet = sequelize.define(
     cost_price: { type: DataTypes.DECIMAL(12, 2) },
     final_price: { type: DataTypes.DECIMAL(10, 2) },
     gp: { type: DataTypes.DECIMAL(10, 2) },
+    margin:{type:DataTypes.DECIMAL(10,2)},
     total_gp: { type: DataTypes.DECIMAL(10, 2) },
     fabric_details:{type:DataTypes.JSON },
     total_cost_of_fabrics:{type:DataTypes.DECIMAL(12,2) , defaultValue:0.0 },
