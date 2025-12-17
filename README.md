@@ -23,7 +23,7 @@ Make sure you have the following installed on your computer:
 Download and install from: [https://nodejs.org](https://nodejs.org)
 
 Verify installation:
-```bash
+bash
 node -v
 npm -v
 Install PostgreSQL
