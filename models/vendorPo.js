@@ -8,6 +8,8 @@ const VendorPO = sequelize.define("VendorPO", {
   buyer_po_number: { type: DataTypes.STRING, unique: true },
   vendor_po_no: { type: DataTypes.STRING },
   order_type: { type: DataTypes.STRING },
+  sampling_type:{type: DataTypes.STRING},
+  sampling_purpose:{type:DataTypes.STRING},
   status: { type: DataTypes.STRING },
   vendor_company_name: { type: DataTypes.STRING },
   vendor_name: { type: DataTypes.STRING },
@@ -23,6 +25,7 @@ const VendorPO = sequelize.define("VendorPO", {
   discount: { type: DataTypes.DECIMAL(12,2) },
   total_amount: { type: DataTypes.DECIMAL(12,2) },
   terms_and_conditions: { type: DataTypes.TEXT },
+  vendor_address:{type: DataTypes.TEXT},
 }, {
   tableName: "vendor_po",
   timestamps: false
