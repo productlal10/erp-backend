@@ -26,6 +26,8 @@ const VendorPO = sequelize.define("VendorPO", {
   total_amount: { type: DataTypes.DECIMAL(12,2) },
   terms_and_conditions: { type: DataTypes.TEXT },
   vendor_address:{type: DataTypes.TEXT},
+  shipping_address:{type:DataTypes.TEXT},
+  shipping_city:{type:DataTypes.STRING},
 }, {
   tableName: "vendor_po",
   timestamps: false

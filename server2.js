@@ -244,6 +244,8 @@ const paymentTermRoutes = require("./routes/paymentTerms");
 const paymentTermMasterRoutes = require("./routes/paymentTermMasterRoutes");
 const stateRoutes = require("./routes/stateRoutes");
 const forexRoutes = require("./routes/forex");
+/////------OCR-----///
+const ocrRoutes = require('./routes/ocrRoutes');
 
 
 
@@ -267,6 +269,8 @@ app.use("/payment-terms", paymentTermRoutes(models, requireLogin));
 app.use("/payment-term-master", paymentTermMasterRoutes(models, requireLogin));
 app.use("/states", stateRoutes(models, requireLogin));
 app.use("/forex", forexRoutes);
+/////------------OOOCCCRRR------------/////
+app.use('/api/ocr', ocrRoutes);
 
 
 
