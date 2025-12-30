@@ -28,6 +28,7 @@ const VendorPO = sequelize.define("VendorPO", {
   vendor_address:{type: DataTypes.TEXT},
   shipping_address:{type:DataTypes.TEXT},
   shipping_city:{type:DataTypes.STRING},
+  quantity_tolerance:{type:DataTypes.STRING},
 }, {
   tableName: "vendor_po",
   timestamps: false

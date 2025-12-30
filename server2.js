@@ -45,6 +45,7 @@ const StateMaster = require("./models/StateMaster");
 
 
 
+
 // Consolidate models into an object for easy access
 const models = {
   SystemPO, BuyerPOLineItem, TNAMergedReport,
@@ -246,6 +247,9 @@ const stateRoutes = require("./routes/stateRoutes");
 const forexRoutes = require("./routes/forex");
 /////------OCR-----///
 const ocrRoutes = require('./routes/ocrRoutes');
+const buyerPoDocumentRoutes = require("./routes/buyerPoDocuments.routes");
+const vendorPoDocumentsRoutes = require("./routes/vendorPoDocuments.routes");
+
 
 
 
@@ -271,6 +275,9 @@ app.use("/states", stateRoutes(models, requireLogin));
 app.use("/forex", forexRoutes);
 /////------------OOOCCCRRR------------/////
 app.use('/api/ocr', ocrRoutes);
+app.use("/uploads", express.static("uploads"));
+app.use("/api", buyerPoDocumentRoutes);
+app.use("/api", vendorPoDocumentsRoutes);
 
 
 
